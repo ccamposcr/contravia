@@ -12,22 +12,22 @@ var gulp         = require('gulp'),
     runSequence  = require('run-sequence'),
     jsBuildInfo  = {
                       'util': {
-                        src: './js/util/index.js',
+                        src: './assets/js/util/index.js',
                         dest: './js/',
                         rename: 'util.js'
                       },
                       'components': {
-                        src: './js/components/index.js',
+                        src: './assets/js/components/index.js',
                         dest: './js/',
                         rename: 'components.js'
                       },
                       'vendor': {
-                        src: './js/vendor/index.js',
+                        src: './assets/js/vendor/index.js',
                         dest: './js/',
                         rename: 'vendor.js'
                       },
                       'services': {
-                        src: './js/services/index.js',
+                        src: './assets/js/services/index.js',
                         dest: './js/',
                         rename: 'services.js'
                       }
@@ -74,7 +74,7 @@ var html_build = function () {
 
 var sass_task = function() {
   return gulp
-          .src('./scss/style.scss')
+          .src('./assets/scss/style.scss')
                 .pipe(plumber())
                 .pipe(sass.sync({
                   outputStyle: 'expanded',
@@ -85,7 +85,7 @@ var sass_task = function() {
                       cascade: false
                     })
                   )
-                .pipe(gulp.dest('./css/'));
+                .pipe(gulp.dest('./assets/css/'));
 };
 
 var getJSBuild = function(name){
@@ -106,24 +106,24 @@ var js_util_build       = getJSBuild('util'),
 
 
 var watch_task = function(){
-  watch('./scss/**/*.scss', sass_task);
-  watch('./js/util/**/*.js', js_util_build);
-  watch('./js/vendor/**/*.js', js_vendor_build);
-  watch('./js/components/**/*.js', js_components_build);
-  watch('./js/services/**/*.js', js_services_build)
+  watch('./assets/scss/**/*.scss', sass_task);
+  watch('./assets/js/util/**/*.js', js_util_build);
+  watch('./assets/js/vendor/**/*.js', js_vendor_build);
+  watch('./assets/js/components/**/*.js', js_components_build);
+  watch('./assets/js/services/**/*.js', js_services_build)
 };
 
 var lint = function() {
   var notIncludeTheseFiles = [
-                              '!./js/**/**/index.js',
-                              '!./js/vendor/**/**',
-                              '!./js/components.js',
-                              '!./js/util.js',
-                              '!./js/vendor.js',
-                              '!./js/services.js',
-                              '!./js/util/is_mobile.js',
+                              '!./assets/js/**/**/index.js',
+                              '!./assets/js/vendor/**/**',
+                              '!./assets/js/components.js',
+                              '!./assets/js/util.js',
+                              '!./assets/js/vendor.js',
+                              '!./assets/js/services.js',
+                              '!./assets/js/util/is_mobile.js',
                               ];
-  var filesToLint = ['./js/**/*.js'];
+  var filesToLint = ['./assets/js/**/*.js'];
   
   return gulp
             .src(filesToLint.concat(notIncludeTheseFiles))
