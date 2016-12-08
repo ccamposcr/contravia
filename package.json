@@ -1,0 +1,40 @@
+{
+  "name": "cms-fe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp-build": "./node_modules/.bin/gulp",
+    "gulp-dev": "./node_modules/.bin/gulp",
+    "gulp-prod": "./node_modules/.bin/gulp --env PROD",
+    "gulp-build-deploy": "./node_modules/.bin/gulp --env PROD",
+    "gulp-watch": "./node_modules/.bin/gulp watch",
+    "gulp-server": "./node_modules/.bin/gulp server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.digitas.com/bp/cms-fe.git"
+  },
+  "keywords": [],
+  "author": "Jair Reina <jaireina@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-connect": "^5.0.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-include": "^2.3.1",
+    "gulp-install": "~0.6.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-watch": "^4.3.10",
+    "gulp-webserver": "^0.9.1",
+    "run-sequence": "^1.1.5",
+    "browser-sync": "^2.9.6",
+    "gulp-debug": "^2.1.0"
+  }
+}
