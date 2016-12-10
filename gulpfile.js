@@ -13,22 +13,22 @@ var gulp         = require('gulp'),
     jsBuildInfo  = {
                       'util': {
                         src: './assets/js/util/index.js',
-                        dest: './js/',
+                        dest: './assets/js/',
                         rename: 'util.js'
                       },
                       'components': {
                         src: './assets/js/components/index.js',
-                        dest: './js/',
+                        dest: './assets/js/',
                         rename: 'components.js'
                       },
                       'vendor': {
                         src: './assets/js/vendor/index.js',
-                        dest: './js/',
+                        dest: './assets/js/',
                         rename: 'vendor.js'
                       },
                       'services': {
                         src: './assets/js/services/index.js',
-                        dest: './js/',
+                        dest: './assets/js/',
                         rename: 'services.js'
                       }
                     };
@@ -57,7 +57,7 @@ var server = function() {
   //watch for changes on jade, scss js and images
   watch('./assets/**/**/*.jade', executeTaskAndReload.bind(null, ['html']));
   watch('./assets/scss/**/**/*.scss', executeTaskAndReload.bind(null, ['sass']));
-  watch(['./assets/js/**/**/*.js', '!./assets/js/components.js', '!./assets/js/util.js', '!./assets/js/vendor.js'], executeTaskAndReload.bind(null, ['util','vendor','components']));
+  watch(['./assets/js/**/**/*.js', '!./assets/js/components.js', '!./assets/js/util.js', '!./assets/js/vendor.js', '!./assets/js/services.js'], executeTaskAndReload.bind(null, ['js_util','js_vendor','js_components','js_services']));
 };
 
 var html_build = function () {
