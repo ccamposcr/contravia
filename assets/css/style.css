@@ -1,3 +1,19 @@
+.logo {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+}
+
 /**Import vendor files here**/
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -1374,4 +1390,13 @@ hr {
   .hidden-print {
     display: none !important;
   }
+}
+
+/**Import components files here**/
+.navigation {
+  background-color: #000000;
+  height: 64px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
