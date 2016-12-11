@@ -1,0 +1,22 @@
+.logo{
+	width: 200px;
+	height: 115px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	z-index: 102;
+	img{
+		display: block;
+		width: 100%;
+	}
+}
+
+.isotipo{
+	img{
+		display: block;
+		width: 100%;
+	}
+}

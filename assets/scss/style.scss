@@ -1,9 +1,12 @@
+@import 'mixins/_media_queries.scss';
 @import '_variables.scss';
 @import '_global.scss';
 
 /**Import vendor files here**/
 @import 'vendor/bootstrap';
+@import 'vendor/hero';
 
 
 /**Import components files here**/
 @import 'components/_navigation';
+@import 'components/_logo';

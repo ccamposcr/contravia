@@ -8,4 +8,9 @@
     var UTIL = window.UTIL = window.UTIL || {};
     var SERVICE = window.SERVICE = window.SERVICE || {};
 
+    var APP = window.APP || {};
+    var $window = $(window);
+	var $document = $(document);
+	var $body = $('body');
+
 })(jQuery);

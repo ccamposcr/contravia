@@ -1,0 +1,45 @@
+@mixin media($size, $orientation:"") {
+    $orientation_text: get_orientation_text($orientation);
+    @if $size==xm-sm {
+        @media screen and (min-width: $screen-xs-sm-min) #{$orientation_text} {
+            @content;
+        }
+    }
+    @if $size==sm {
+        @media screen and (min-width: $screen-sm-min) #{$orientation_text} {
+            @content;
+        }
+    }
+    @else if $size==md {
+        @media screen and (min-width: $screen-md-min) #{$orientation_text} {
+            @content;
+        }
+    }
+    @else if $size==lg {
+        @media  screen and (min-width: $screen-lg-min) #{$orientation_text} {
+            @content;
+        }
+    }
+    @else {
+        @media screen and (min-width: $size) #{$orientation_text} {
+            @content;
+        }
+    }
+}
+
+@function get_orientation_text($orientation:"") {
+    $orientation_text: "";
+    @if $orientation !="" {
+        $orientation_text: "and (orientation: " + $orientation")"
+    }
+    @return $orientation_text;
+}
+
+@function rem($px, $context: 10) {
+    @return ($px / $context) * 1rem;
+}
+
+@function em($px, $context: 16) {
+    @return ($px / $context) * 1em;
+}
+

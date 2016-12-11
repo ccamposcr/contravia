@@ -2,6 +2,17 @@ extends partials/main_template
 block content
 	section.row
 		.col-xs-12
-			.logo
-				img(src="../images/logo.png")
+			.homepage-hero-module
+				.logo
+					img(src="../images/logo_white.png")
+				.video-container
+					.filter
+					video(autoplay loop class="fillWidth")
+						source(src="../videos/hero/MP4/Strum-Away.mp4" type="video/mp4")
+						source(src="../videos/hero/WEBM/Strum-Away.webm" type="video/webm")
+						source(src="../videos/hero/OGV/Strum-Away.ogv" type="video/ogv")
+					.poster.hidden
+						img(src="../images/hero/Snapshots/Strum-Away.jpg" alt="Strum-Away")
+				//.bible_verse
+					span "Por tanto, id, y haced disc&iacute;pulos a todas las naciones, bautiz&aacute;ndolos en el nombre del Padre, y del Hijo, y del Esp&iacute;ritu Santo..." #[span.verse Mateo 28:19]
 
