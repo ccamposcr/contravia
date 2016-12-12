@@ -1,6 +1,13 @@
 .generic_section{
 	min-height: 500px;
 	padding: 0 30px;
-	display: flex;
-	align-items: center;
+	
+	&.vertical_center{
+		display: flex;
+		align-items: center;
+	}
+
+	&.dark_background{
+		background-color: $warm_gray;
+	}
 }

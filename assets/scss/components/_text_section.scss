@@ -1,9 +1,12 @@
 .text_section{
   color: $warm_gray;
   font-size: rem(24);
-  font-style: italic;
   text-align: center;
   margin: auto;
+
+  &.quote{
+	font-style: italic;
+  }
 }
 
 @include media(sm){

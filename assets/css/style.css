@@ -1522,9 +1522,12 @@ hr {
 .text_section {
   color: #666666;
   font-size: 2.4rem;
-  font-style: italic;
   text-align: center;
   margin: auto;
+}
+
+.text_section.quote {
+  font-style: italic;
 }
 
 @media screen and (min-width: 768px) {
@@ -1542,10 +1545,17 @@ hr {
 .generic_section {
   min-height: 500px;
   padding: 0 30px;
+}
+
+.generic_section.vertical_center {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.generic_section.dark_background {
+  background-color: #666666;
 }
