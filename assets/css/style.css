@@ -1,3 +1,9 @@
+/*=============================
+=            Media            =
+=============================*/
+/*==============================
+=            Colors            =
+==============================*/
 .full_width [class*="col-"] {
   padding-left: 0;
   padding-right: 0;
@@ -6,6 +12,18 @@
 a {
   font-size: 1.6rem;
   font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  color: #999999;
+}
+
+body {
+  padding-bottom: 64px;
 }
 
 /**Import vendor files here**/
@@ -1433,14 +1451,6 @@ hr {
   width: 100%;
 }
 
-.bible_verse {
-  position: absolute;
-  color: #ffffff;
-  z-index: 102;
-  font-size: 1.2rem;
-  font-style: italic;
-}
-
 /**Import components files here**/
 .navigation {
   background-color: #000000;
@@ -1469,8 +1479,22 @@ hr {
   margin-left: 20px;
 }
 
+.navigation .main_nav li:first-child {
+  margin-left: 0;
+}
+
 .navigation .main_nav li a {
   color: #ffffff;
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .navigation .main_nav li {
+    margin-left: 50px;
+  }
+  .navigation .main_nav li a {
+    font-size: 1.6rem;
+  }
 }
 
 .logo {
@@ -1493,4 +1517,35 @@ hr {
 .isotipo img {
   display: block;
   width: 100%;
+}
+
+.text_section {
+  color: #999999;
+  font-size: 2.4rem;
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .text_section {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .text_section {
+    width: 60%;
+  }
+}
+
+.generic_section {
+  min-height: 500px;
+  padding: 0 30px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }

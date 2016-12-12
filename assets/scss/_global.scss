@@ -9,3 +9,15 @@ a{
 	font-size: rem(16);
 	font-weight: 300;
 }
+
+h1,
+h2,
+h3,
+h4,
+p{
+	color: $gray;
+}
+
+body{
+	padding-bottom: 64px;
+}

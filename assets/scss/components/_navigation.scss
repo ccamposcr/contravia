@@ -17,8 +17,27 @@
 		li{
 			display: inline-block;
 			margin-left: 20px;
+
+			&:first-child{
+				margin-left: 0;
+			}
+
 			a{
 				color: $white;
+				font-size: rem(12);
+			}
+		}
+	}
+}
+
+@include media(sm){
+	.navigation{
+		.main_nav{
+			li{
+				margin-left: 50px;
+				a{
+					font-size: rem(16);
+				}
 			}
 		}
 	}

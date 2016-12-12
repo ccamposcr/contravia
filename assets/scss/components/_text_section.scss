@@ -1,0 +1,19 @@
+.text_section{
+  color: $gray;
+  font-size: rem(24);
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+}
+
+@include media(sm){
+	.text_section{
+		width: 80%;
+	}
+}
+
+@include media(md){
+.text_section{
+		width: 60%;
+	}
+}
