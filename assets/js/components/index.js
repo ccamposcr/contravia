@@ -13,4 +13,6 @@
 	var $document = $(document);
 	var $body = $('body');
 
+	//=require navigation.js
+
 })(jQuery);
