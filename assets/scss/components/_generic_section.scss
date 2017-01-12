@@ -9,5 +9,9 @@
 
 	&.dark_background{
 		background-color: $warm_gray;
+		.title,
+		.text{
+			color: $white;
+		}
 	}
 }

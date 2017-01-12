@@ -1,27 +1,3 @@
-/*=============================
-=            Media            =
-=============================*/
-/*==============================
-=            Colors            =
-==============================*/
-.full_width [class*="col-"] {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-a {
-  font-size: 1.6rem;
-  font-weight: 300;
-}
-
-h1,
-h2,
-h3,
-h4,
-p {
-  color: #999999;
-}
-
 /**Import vendor files here**/
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -1448,6 +1424,35 @@ hr {
   width: 100%;
 }
 
+/**Global files**/
+/*=============================
+=            Media            =
+=============================*/
+/*==============================
+=            Colors            =
+==============================*/
+.full_width [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+a {
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  color: #999999;
+}
+
+body {
+  font-family: 'Oxygen', sans-serif;
+}
+
 /**Import components files here**/
 .navigation {
   background-color: #000000;
@@ -1521,7 +1526,7 @@ hr {
 }
 
 .text_section {
-  color: #666666;
+  color: #333333;
   font-size: 2.4rem;
   text-align: center;
   margin: auto;
@@ -1558,5 +1563,23 @@ hr {
 }
 
 .generic_section.dark_background {
-  background-color: #666666;
+  background-color: #333333;
+}
+
+.generic_section.dark_background .title,
+.generic_section.dark_background .text {
+  color: #ffffff;
+}
+
+.info_section {
+  padding: 0 45px;
+}
+
+.info_section .title {
+  font-size: 2.4rem;
+}
+
+.info_section .text {
+  font-size: 1.6rem;
+  font-weight: lighter;
 }
