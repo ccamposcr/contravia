@@ -1,9 +1,9 @@
 APP.navigation = (function(){
   var _init = function(context){
       $('.navigation', context)
-          .each(function(i, section){
-              new Nav($(section));
-          });
+      .each(function(i, section){
+          new Nav($(section));
+      });
   };
 
   return {

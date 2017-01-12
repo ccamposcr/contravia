@@ -14,5 +14,6 @@
 	var $body = $('body');
 
 	//=require navigation.js
+	//=require hero.js
 
 })(jQuery);
