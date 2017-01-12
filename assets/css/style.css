@@ -1431,9 +1431,9 @@ hr {
 /*==============================
 =            Colors            =
 ==============================*/
-.full_width [class*="col-"] {
-  padding-left: 0;
-  padding-right: 0;
+.full_width {
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 a {
