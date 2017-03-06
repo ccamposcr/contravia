@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <nav class="row navigation">
         <div class="col-xs-3 col-sm-2">
-          <div class="isotipo"><img src="../images/isotipo_white.png"></div>
+          <div class="isotipo"><a href="/"><img src="../images/isotipo_white.png"></a></div>
         </div>
         <div class="col-xs-9 col-sm-10">
           <ul class="main_nav">
@@ -25,16 +25,22 @@
           </ul>
         </div>
       </nav>
-      <div class="homepage-hero-module full_width">
+      <div class="hero full_width">
         <div class="logo"><img src="../images/logo_white.png"></div>
         <div class="video-container">
-          <div class="filter"></div>
-          <video autoplay loop muted class="fillWidth">
-            <source src="../videos/hero/MP4/contravia.mp4" type="video/mp4">
-          </video>
-          <div class="poster hidden"><img src="../images/hero/Snapshots/Strum-Away.jpg" alt="Strum-Away"></div>
+          <div data-vide-bg="mp4: ../videos/hero/MP4/contravia.mp4, poster: ../images/hero/contravia" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg, resizing: true" class="video autoHeight"></div>
         </div>
       </div>
+      <!--
+      .logo
+      	img(src="../images/logo_white.png")
+      .video-container
+      	.filter
+      	video(autoplay loop class="fillWidth" muted)
+      		source(src="../videos/hero/MP4/contravia.mp4" type="video/mp4")
+      	.poster.hidden
+      		img(src="../images/hero/Strum-Away.jpg" alt="Strum-Away")
+      -->
       <div class="row">
         <div class="col-xs-12">
           <section class="text_section generic_section quote vertical_center row">
