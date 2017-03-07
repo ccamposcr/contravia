@@ -1405,6 +1405,11 @@ body {
   font-family: 'Oxygen', sans-serif;
 }
 
+body,
+html {
+  height: 100%;
+}
+
 /**Import components files here**/
 .navigation {
   background-color: #000000;
@@ -1537,4 +1542,13 @@ body {
 .info_section .text {
   font-size: 1.6rem;
   font-weight: lighter;
+}
+
+.hero {
+  height: 100%;
+}
+
+.hero video {
+  max-width: 100%;
+  height: auto;
 }

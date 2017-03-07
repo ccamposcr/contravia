@@ -1,14 +1,6 @@
 .hero.full_width
 	.logo
 		img(src="../images/logo_white.png")
-	.video-container
-		.video.autoHeight(data-vide-bg="mp4: ../videos/hero/MP4/contravia.mp4, poster: ../images/hero/contravia" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: jpg, resizing: true")
-//
-	.logo
-		img(src="../images/logo_white.png")
-	.video-container
-		.filter
-		video(autoplay loop class="fillWidth" muted)
-			source(src="../videos/hero/MP4/contravia.mp4" type="video/mp4")
-		.poster.hidden
-			img(src="../images/hero/Strum-Away.jpg" alt="Strum-Away")
+	video(src="../videos/hero/MP4/contravia.mp4" loop muted autoplay)
+//			
+	.video(data-vide-bg="mp4: ../videos/hero/MP4/contravia.mp4" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: none, resizing: true")
