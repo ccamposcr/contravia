@@ -1,6 +1,8 @@
 .hero.full_width
 	.logo
 		img(src="../images/logo_white.png")
-	video(src="../videos/hero/MP4/contravia.mp4" loop muted autoplay)
-//			
-	.video(data-vide-bg="mp4: ../videos/hero/MP4/contravia.mp4" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: none, resizing: true")
+	div(class="element-with-video-bg jquery-background-video-wrapper")
+		video(data-bgvideo="true" class="jquery-background-video" loop autoplay muted data-bgvideo-show-pause-play="false" poster="../images/hero/contravia.jpg")
+			source(src="../videos/hero/MP4/contravia.mp4" type="video/mp4")
+			source(src="../videos/hero/WEBM/contravia.webm" type="video/webm")
+			source(src="../videos/hero/OGV/contravia.ogg" type="video/ogg")

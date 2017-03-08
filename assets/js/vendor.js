@@ -10222,504 +10222,258 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-/*
- *  Vide - v0.5.1
- *  Easy as hell jQuery plugin for video backgrounds.
- *  http://vodkabears.github.io/vide/
- *
- *  Made by Ilya Makarov
- *  Under MIT License
- */
-!(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['jquery'], factory);
-  } else if (typeof exports === 'object') {
-    factory(require('jquery'));
-  } else {
-    factory(root.jQuery);
-  }
-})(this, function($) {
+// The MIT License (MIT)
 
-  'use strict';
+// Copyright (c) 2015 BG Stock - html5backgroundvideos.com
 
-  /**
-   * Name of the plugin
-   * @private
-   * @const
-   * @type {String}
-   */
-  var PLUGIN_NAME = 'vide';
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 
-  /**
-   * Default settings
-   * @private
-   * @const
-   * @type {Object}
-   */
-  var DEFAULTS = {
-    volume: 1,
-    playbackRate: 1,
-    muted: true,
-    loop: true,
-    autoplay: true,
-    position: '50% 50%',
-    posterType: 'detect',
-    resizing: true,
-    bgColor: 'transparent',
-    className: ''
-  };
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 
-  /**
-   * Not implemented error message
-   * @private
-   * @const
-   * @type {String}
-   */
-  var NOT_IMPLEMENTED_MSG = 'Not implemented';
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
-  /**
-   * Parse a string with options
-   * @private
-   * @param {String} str
-   * @returns {Object|String}
-   */
-  function parseOptions(str) {
-    var obj = {};
-    var delimiterIndex;
-    var option;
-    var prop;
-    var val;
-    var arr;
-    var len;
-    var i;
+(function($) {
 
-    // Remove spaces around delimiters and split
-    arr = str.replace(/\s*:\s*/g, ':').replace(/\s*,\s*/g, ',').split(',');
+  // Add js class to html
+  $('html').addClass('js');
 
-    // Parse a string
-    for (i = 0, len = arr.length; i < len; i++) {
-      option = arr[i];
-
-      // Ignore urls and a string without colon delimiters
-      if (
-        option.search(/^(http|https|ftp):\/\//) !== -1 ||
-        option.search(':') === -1
-      ) {
-        break;
-      }
-
-      delimiterIndex = option.indexOf(':');
-      prop = option.substring(0, delimiterIndex);
-      val = option.substring(delimiterIndex + 1);
-
-      // If val is an empty string, make it undefined
-      if (!val) {
-        val = undefined;
-      }
-
-      // Convert a string value if it is like a boolean
-      if (typeof val === 'string') {
-        val = val === 'true' || (val === 'false' ? false : val);
-      }
-
-      // Convert a string value if it is like a number
-      if (typeof val === 'string') {
-        val = !isNaN(val) ? +val : val;
-      }
-
-      obj[prop] = val;
-    }
-
-    // If nothing is parsed
-    if (prop == null && val == null) {
-      return str;
-    }
-
-    return obj;
+  // Add IE8 shim for Date.now()
+  if (!Date.now) {
+    Date.now = function() { return new Date().getTime(); }
   }
 
-  /**
-   * Parse a position option
-   * @private
-   * @param {String} str
-   * @returns {Object}
-   */
-  function parsePosition(str) {
-    str = '' + str;
+  // Return current time in seconds
+  function currentTime() {
+    return Math.floor(Date.now() / 1000);
+  }
 
-    // Default value is a center
-    var args = str.split(/\s+/);
-    var x = '50%';
-    var y = '50%';
-    var len;
-    var arg;
-    var i;
+  // The plugin
+  $.fn.bgVideo = function( options ) {
 
-    for (i = 0, len = args.length; i < len; i++) {
-      arg = args[i];
+    // @bool iOS
+    var iOS = /iPad|iPhone|iPod/.test(navigator.platform) || /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-      // Convert values
-      if (arg === 'left') {
-        x = '0%';
-      } else if (arg === 'right') {
-        x = '100%';
-      } else if (arg === 'top') {
-        y = '0%';
-      } else if (arg === 'bottom') {
-        y = '100%';
-      } else if (arg === 'center') {
-        if (i === 0) {
-          x = '50%';
-        } else {
-          y = '50%';
+    // Settings
+    var settings = $.extend({}, $.fn.bgVideo.defaults, options );
+
+    // Do the things
+    return this.each(function() {
+
+      // Set some handy variables
+      var $video = $(this); // jQuery Object
+      var video = $video[0]; // DOM node
+      var poster = $video.attr('poster') || '';
+      var $container = $video.parent();
+      var $pauseplay = $('<button class="jquery-background-video-pauseplay pause"><span>Pause</span></button>');
+      var start_time; // We'll set this when it starts playing
+
+
+      // Check for any data attributes that will override the settings for this particular element
+      var el_settings = $.extend({}, settings);
+      var data_attrs = $video.data();
+      $.each( data_attrs, function( data_name, data_val ) {
+        if( data_name.indexOf('bgvideo') === 0 ) {
+          // It's a match! Strip the bgvideo prefix and lowercase the first letter
+          data_name = data_name.replace('bgvideo', '');
+          data_name = data_name.charAt(0).toLowerCase() + data_name.slice(1);
+          // Then set the setting
+          el_settings[data_name] = data_val;
         }
-      } else {
-        if (i === 0) {
-          x = arg;
-        } else {
-          y = arg;
+      });
+
+      
+      // Attach to playing event
+      $video.on('playing', function(){
+        start_time = currentTime();
+        $video.addClass('is-playing is-visible');
+        $pauseplay.removeClass('play').addClass('pause').find('span').text('Pause');
+        $.fn.bgVideo.fitVideo( $video );
+      });
+
+
+      // If the video is already playing before js loads
+      if( video.currentTime > 0 ) {
+        $video.addClass('is-playing is-visible');
+      }
+
+
+      // Attach to pause event
+      $video.on('pause', function(){
+        $video.removeClass('is-playing');
+        $pauseplay.removeClass('pause').addClass('play').find('span').text('Play');
+        if(el_settings.fadeOnPause) {
+          $video.removeClass('is-visible');
         }
-      }
-    }
+      });
 
-    return { x: x, y: y };
-  }
 
-  /**
-   * Search a poster
-   * @private
-   * @param {String} path
-   * @param {Function} callback
-   */
-  function findPoster(path, callback) {
-    var onLoad = function() {
-      callback(this.src);
-    };
-
-    $('<img src="' + path + '.gif">').on('load', onLoad);
-    $('<img src="' + path + '.jpg">').on('load', onLoad);
-    $('<img src="' + path + '.jpeg">').on('load', onLoad);
-    $('<img src="' + path + '.png">').on('load', onLoad);
-  }
-
-  /**
-   * Vide constructor
-   * @param {HTMLElement} element
-   * @param {Object|String} path
-   * @param {Object|String} options
-   * @constructor
-   */
-  function Vide(element, path, options) {
-    this.$element = $(element);
-
-    // Parse path
-    if (typeof path === 'string') {
-      path = parseOptions(path);
-    }
-
-    // Parse options
-    if (!options) {
-      options = {};
-    } else if (typeof options === 'string') {
-      options = parseOptions(options);
-    }
-
-    // Remove an extension
-    if (typeof path === 'string') {
-      path = path.replace(/\.\w*$/, '');
-    } else if (typeof path === 'object') {
-      for (var i in path) {
-        if (path.hasOwnProperty(i)) {
-          path[i] = path[i].replace(/\.\w*$/, '');
-        }
-      }
-    }
-
-    this.settings = $.extend({}, DEFAULTS, options);
-    this.path = path;
-
-    // https://github.com/VodkaBears/Vide/issues/110
-    try {
-      this.init();
-    } catch (e) {
-      if (e.message !== NOT_IMPLEMENTED_MSG) {
-        throw e;
-      }
-    }
-  }
-
-  /**
-   * Initialization
-   * @public
-   */
-  Vide.prototype.init = function() {
-    var vide = this;
-    var path = vide.path;
-    var poster = path;
-    var sources = '';
-    var $element = vide.$element;
-    var settings = vide.settings;
-    var position = parsePosition(settings.position);
-    var posterType = settings.posterType;
-    var $video;
-    var $wrapper;
-
-    // Set styles of a video wrapper
-    $wrapper = vide.$wrapper = $('<div>')
-      .addClass(settings.className)
-      .css({
-        position: 'absolute',
-        'z-index': -1,
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        overflow: 'hidden',
-        '-webkit-background-size': 'cover',
-        '-moz-background-size': 'cover',
-        '-o-background-size': 'cover',
+      // Set default styles
+      $container.css({
+        'position': 'relative',
+        'overflow': 'hidden',
         'background-size': 'cover',
-        'background-color': settings.bgColor,
+        'background-position': 'center center',
         'background-repeat': 'no-repeat',
-        'background-position': position.x + ' ' + position.y
+        'background-image': 'url(' + poster + ')'
       });
-
-    // Get a poster path
-    if (typeof path === 'object') {
-      if (path.poster) {
-        poster = path.poster;
-      } else {
-        if (path.mp4) {
-          poster = path.mp4;
-        } else if (path.webm) {
-          poster = path.webm;
-        } else if (path.ogv) {
-          poster = path.ogv;
-        }
-      }
-    }
-
-    // Set a video poster
-    if (posterType === 'detect') {
-      findPoster(poster, function(url) {
-        $wrapper.css('background-image', 'url(' + url + ')');
+      $video.css({
+        'min-width': 'auto',
+        'min-height': 'auto',
+        'width': '100%',
+        'height': 'auto',
+        'position': 'absolute',
+        'left': '50%',
+        'top': '50%',
+        'transform': 'translate(-50%,-50%)'
       });
-    } else if (posterType !== 'none') {
-      $wrapper.css('background-image', 'url(' + poster + '.' + posterType + ')');
-    }
-
-    // If a parent element has a static position, make it relative
-    if ($element.css('position') === 'static') {
-      $element.css('position', 'relative');
-    }
-
-    $element.prepend($wrapper);
-
-    if (typeof path === 'object') {
-      if (path.mp4) {
-        sources += '<source src="' + path.mp4 + '.mp4" type="video/mp4">';
-      }
-
-      if (path.webm) {
-        sources += '<source src="' + path.webm + '.webm" type="video/webm">';
-      }
-
-      if (path.ogv) {
-        sources += '<source src="' + path.ogv + '.ogv" type="video/ogg">';
-      }
-
-      $video = vide.$video = $('<video>' + sources + '</video>');
-    } else {
-      $video = vide.$video = $('<video>' +
-        '<source src="' + path + '.mp4" type="video/mp4">' +
-        '<source src="' + path + '.webm" type="video/webm">' +
-        '<source src="' + path + '.ogv" type="video/ogg">' +
-        '</video>');
-    }
-
-    // https://github.com/VodkaBears/Vide/issues/110
-    try {
-      $video
-
-        // Set video properties
-        .prop({
-          autoplay: settings.autoplay,
-          loop: settings.loop,
-          volume: settings.volume,
-          muted: settings.muted,
-          defaultMuted: settings.muted,
-          playbackRate: settings.playbackRate,
-          defaultPlaybackRate: settings.playbackRate
+      if( el_settings.fullScreen ) {
+        $container.css({
+          'position': 'fixed',
+          'top': '0',
+          'bottom': '0',
+          'left': '0',
+          'right': '0',
+          'height': 'auto',
+          'margin': '0',
+          'z-index': '-1'
         });
-    } catch (e) {
-      throw new Error(NOT_IMPLEMENTED_MSG);
-    }
-
-    // Video alignment
-    $video.css({
-      margin: 'auto',
-      position: 'absolute',
-      'z-index': -1,
-      top: position.y,
-      left: position.x,
-      '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      transform: 'translate(-' + position.x + ', -' + position.y + ')',
-
-      // Disable visibility, while loading
-      visibility: 'hidden',
-      opacity: 0
-    })
-
-    // Resize a video, when it's loaded
-    .one('canplaythrough.' + PLUGIN_NAME, function() {
-      vide.resize();
-    })
-
-    // Make it visible, when it's already playing
-    .one('playing.' + PLUGIN_NAME, function() {
-      $video.css({
-        visibility: 'visible',
-        opacity: 1
-      });
-      $wrapper.css('background-image', 'none');
-    });
-
-    // Resize event is available only for 'window'
-    // Use another code solutions to detect DOM elements resizing
-    $element.on('resize.' + PLUGIN_NAME, function() {
-      if (settings.resizing) {
-        vide.resize();
       }
-    });
 
-    // Append a video
-    $wrapper.append($video);
-  };
 
-  /**
-   * Get a video element
-   * @public
-   * @returns {HTMLVideoElement}
-   */
-  Vide.prototype.getVideoObject = function() {
-    return this.$video[0];
-  };
+      // Fade in video by setting the transition duration
+      $video.css('transition-duration', el_settings.fadeIn + 'ms');
 
-  /**
-   * Resize a video background
-   * @public
-   */
-  Vide.prototype.resize = function() {
-    if (!this.$video) {
-      return;
-    }
 
-    var $wrapper = this.$wrapper;
-    var $video = this.$video;
-    var video = $video[0];
+      // Remove on iOS
+      if( iOS ) {
+        // Unset sources to prevent them from continuing to download
+        $video.attr('src', '');
+        $video.find('source').attr('src', '');
+        $video.remove();
+      }
 
-    // Get a native video size
-    var videoHeight = video.videoHeight;
-    var videoWidth = video.videoWidth;
 
-    // Get a wrapper size
-    var wrapperHeight = $wrapper.height();
-    var wrapperWidth = $wrapper.width();
-
-    if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
-      $video.css({
-
-        // +2 pixels to prevent an empty space after transformation
-        width: wrapperWidth + 2,
-        height: 'auto'
+      // Mimic background-size: cover with video element
+      $.fn.bgVideo.fitVideo( $video );
+      $(window).resize(function(){
+        $.fn.bgVideo.fitVideo( $video );
       });
-    } else {
-      $video.css({
-        width: 'auto',
 
-        // +2 pixels to prevent an empty space after transformation
-        height: wrapperHeight + 2
-      });
-    }
-  };
 
-  /**
-   * Destroy a video background
-   * @public
-   */
-  Vide.prototype.destroy = function() {
-    delete $[PLUGIN_NAME].lookup[this.index];
-    this.$video && this.$video.off(PLUGIN_NAME);
-    this.$element.off(PLUGIN_NAME).removeData(PLUGIN_NAME);
-    this.$wrapper.remove();
-  };
+      // Pause after X seconds
+      el_settings.pauseAfter = parseInt( el_settings.pauseAfter, 10 );
+      if( el_settings.pauseAfter > 0 ) {
+        $video.on('timeupdate', function(){
+          var now = currentTime();
+          if( now > start_time + el_settings.pauseAfter ) {
+            video.pause();
+            if( el_settings.fadeOnEnd ) {
+              $video.removeClass('is-visible');
+            }
+          }
+        });
+      }
 
-  /**
-   * Special plugin object for instances.
-   * @public
-   * @type {Object}
-   */
-  $[PLUGIN_NAME] = {
-    lookup: []
-  };
 
-  /**
-   * Plugin constructor
-   * @param {Object|String} path
-   * @param {Object|String} options
-   * @returns {JQuery}
-   * @constructor
-   */
-  $.fn[PLUGIN_NAME] = function(path, options) {
-    var instance;
-
-    this.each(function() {
-      instance = $.data(this, PLUGIN_NAME);
-
-      // Destroy the plugin instance if exists
-      instance && instance.destroy();
-
-      // Create the plugin instance
-      instance = new Vide(this, path, options);
-      instance.index = $[PLUGIN_NAME].lookup.push(instance) - 1;
-      $.data(this, PLUGIN_NAME, instance);
-    });
-
-    return this;
-  };
-
-  $(document).ready(function() {
-    var $window = $(window);
-
-    // Window resize event listener
-    $window.on('resize.' + PLUGIN_NAME, function() {
-      for (var len = $[PLUGIN_NAME].lookup.length, i = 0, instance; i < len; i++) {
-        instance = $[PLUGIN_NAME].lookup[i];
-
-        if (instance && instance.settings.resizing) {
-          instance.resize();
+      // Play / pause button
+      if( el_settings.showPausePlay ) {
+        // Append pauseplay element created earlier
+        $container.append($pauseplay);
+        // Position element
+        $pauseplay.css({
+          'left':   'auto',
+          'right':  'auto',
+          'top':    'auto',
+          'bottom': 'auto'
+        });
+        $pauseplay.css(el_settings.pausePlayXPos, el_settings.pausePlayXOffset);
+        $pauseplay.css(el_settings.pausePlayYPos, el_settings.pausePlayYOffset);
+        if( el_settings.pausePlayXPos === 'center' ) {
+          $pauseplay.css({
+            'left':        '50%',
+            'margin-left': '-10px'
+          });
         }
+        if( el_settings.pausePlayYPos === 'center' ) {
+          $pauseplay.css({
+            'top':        '50%',
+            'margin-top': '-10px'
+          });
+        }
+        // Add functionality
+        $pauseplay.on('click', function(){
+          if(video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
       }
+
+
     });
 
-    // https://github.com/VodkaBears/Vide/issues/68
-    $window.on('unload.' + PLUGIN_NAME, function() {
-      return false;
+
+  };
+
+
+  // Default settings
+  $.fn.bgVideo.defaults = {
+    fullScreen: false, // Sets the video to be fixed to the full window
+    fadeIn: 500, // Milliseconds to fade video in/out (0 for no fade)
+    pauseAfter: 120, // Seconds to play before pausing (0 for forever)
+    fadeOnPause: false, // For all (including manual) pauses
+    fadeOnEnd: true, // When we've reached the pauseAfter time
+    showPausePlay: true, // Show pause/play button
+    pausePlayXPos: 'right', // left|right|center
+    pausePlayYPos: 'top', // top|bottom|center
+    pausePlayXOffset: '15px', // pixels or percent from side - ignored if positioned center
+    pausePlayYOffset: '15px' // pixels or percent from top/bottom - ignored if positioned center
+  };
+
+
+  // Fit video
+  $.fn.bgVideo.fitVideo = function( $video ) {
+
+    var $container = $video.parent(),
+      container_height = $container.outerHeight(),
+      container_width = $container.outerWidth();
+
+    // Do this again every time the screen size changes
+    $video.css({
+      'height': 'auto',
+      'width': container_width + 'px'
     });
 
-    // Auto initialization
-    // Add 'data-vide-bg' attribute with a path to the video without extension
-    // Also you can pass options throw the 'data-vide-options' attribute
-    // 'data-vide-options' must be like 'muted: false, volume: 0.5'
-    $(document).find('[data-' + PLUGIN_NAME + '-bg]').each(function(i, element) {
-      var $element = $(element);
-      var options = $element.data(PLUGIN_NAME + '-options');
-      var path = $element.data(PLUGIN_NAME + '-bg');
+    var video_height = $video.height();
 
-      $element[PLUGIN_NAME](path, options);
-    });
+    if( container_height > video_height ) {
+      //console.log('Container height > video height');
+      $video.css({
+        'height': container_height + 'px',
+        'width': 'auto'
+      });
+    }
+
+  };
+
+
+  // Auto run based on data attributes
+  $(document).ready(function(){
+    $('[data-bgvideo]').bgVideo();
   });
 
-});
+
+}(jQuery));

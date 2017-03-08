@@ -14,6 +14,7 @@ APP.hero = (function(){
 function Hero($el){
 	this.$el = $el;
   this.$video = this.$el.find('video');
+  this.$videoWrapper = this.$el.find('.element-with-video-bg');
 	this.setSlowMotion();
   this.bindResizeEvents();
 	return this;
@@ -26,17 +27,17 @@ Hero.prototype.bindResizeEvents = function(){
 
   UTIL.media.on('xs_only', function() {
     windowHeight = $window.height();
-    THIS.$video.height(windowHeight);
+    THIS.$videoWrapper.height(windowHeight);
   });
 
   UTIL.media.on('sm_only', function() {
     windowHeight = $window.height();
-    THIS.$video.height(windowHeight);
+    THIS.$videoWrapper.height(windowHeight);
   });
 
   UTIL.media.on('md', function() {
     windowHeight = $window.height();
-    THIS.$video.height(windowHeight);
+    THIS.$videoWrapper.height(windowHeight);
   });
 
 

@@ -27,10 +27,14 @@
       </nav>
       <div class="hero full_width">
         <div class="logo"><img src="../images/logo_white.png"></div>
-        <video src="../videos/hero/MP4/contravia.mp4" loop muted autoplay></video>
+        <div class="element-with-video-bg jquery-background-video-wrapper">
+          <video data-bgvideo="true" loop autoplay muted data-bgvideo-show-pause-play="false" poster="../images/hero/contravia.jpg" class="jquery-background-video">
+            <source src="../videos/hero/MP4/contravia.mp4" type="video/mp4">
+            <source src="../videos/hero/WEBM/contravia.webm" type="video/webm">
+            <source src="../videos/hero/OGV/contravia.ogg" type="video/ogg">
+          </video>
+        </div>
       </div>
-      <!--			.video(data-vide-bg="mp4: ../videos/hero/MP4/contravia.mp4" data-vide-options="loop: true, muted: true, position: 0% 0%, posterType: none, resizing: true")
-      -->
       <div class="row">
         <div class="col-xs-12">
           <section class="text_section generic_section quote vertical_center row">

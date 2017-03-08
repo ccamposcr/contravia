@@ -2,4 +2,4 @@
 //vendor.js is a generated file. To edit the source go to /js/vendor/index.js
 
 //=require jquery-3.1.1.js
-//=require vide.js
+//=require jquery-background-video.js
