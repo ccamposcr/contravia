@@ -8,15 +8,3 @@
 	font-style: italic;
   }
 }
-
-@include media(sm){
-	.text_section{
-		width: 80%;
-	}
-}
-
-@include media(md){
-.text_section{
-		width: 60%;
-	}
-}
