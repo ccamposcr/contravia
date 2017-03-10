@@ -19,8 +19,22 @@
 	}
 }
 
+.content_wrapper{
+	padding: 0 15px;
+}
+
 @include media(sm){
 	.circle_wrapper{
 		width: 80%;
+	}
+}
+
+@include media(md){
+	.circle_wrapper{
+		width: 70%;
+	}
+
+	.content_wrapper{
+		padding: 0 50px;
 	}
 }

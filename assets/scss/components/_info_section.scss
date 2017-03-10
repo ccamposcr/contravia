@@ -10,10 +10,15 @@
 		line-height: percentage(30/16);
 	}
 	&.image_w_text{
+		border-bottom: 1px solid $middle_gray;
+		padding-left: 0;
+		padding-right: 0;
+		&:last-child{
+			border-bottom: none;
+		}
 		.title,
 		.text{
 			color: $warm_gray;
 		}
 	}
-	
 }

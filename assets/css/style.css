@@ -2032,9 +2032,22 @@ html {
   width: 100%;
 }
 
+.content_wrapper {
+  padding: 0 15px;
+}
+
 @media screen and (min-width: 768px) {
   .circle_wrapper {
     width: 80%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .circle_wrapper {
+    width: 70%;
+  }
+  .content_wrapper {
+    padding: 0 50px;
   }
 }
 
@@ -2051,6 +2064,16 @@ html {
   font-size: 1.6rem;
   font-weight: lighter;
   line-height: 187.5%;
+}
+
+.info_section.image_w_text {
+  border-bottom: 1px solid #979797;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.info_section.image_w_text:last-child {
+  border-bottom: none;
 }
 
 .info_section.image_w_text .title,
