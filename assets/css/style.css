@@ -2084,6 +2084,16 @@ html {
   color: #232323;
 }
 
+.info_section.image_w_text .title {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .info_section.image_w_text .title {
+    text-align: left;
+  }
+}
+
 .hero {
   height: 100%;
   position: relative;

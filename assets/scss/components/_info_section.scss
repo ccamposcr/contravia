@@ -20,5 +20,19 @@
 		.text{
 			color: $warm_gray;
 		}
+
+		.title{
+			text-align: center;
+		}
+	}
+}
+
+@include media(sm){
+	.info_section{
+		&.image_w_text{
+			.title{
+				text-align: left;
+			}
+		}
 	}
 }
