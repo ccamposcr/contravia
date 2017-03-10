@@ -1,6 +1,9 @@
 .generic_section{
-	min-height: 500px;
 	padding: 0 30px;
+
+	&.fixed_min_height{
+		min-height: 500px;
+	}
 	
 	&.vertical_center{
 		display: flex;
