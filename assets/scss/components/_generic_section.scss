@@ -6,12 +6,21 @@
 		display: flex;
 		align-items: center;
 	}
+}
 
-	&.dark_background{
-		background-color: $black;
-		.title,
-		.text{
-			color: $white;
-		}
+.circle_wrapper{
+	border-radius: 50%;
+	overflow: hidden;
+	width: 60%;
+    margin: 0 auto 40px auto;
+	img{
+		display: block;
+		width: 100%;
+	}
+}
+
+@include media(sm){
+	.circle_wrapper{
+		width: 80%;
 	}
 }

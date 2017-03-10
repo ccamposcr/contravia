@@ -1,12 +1,19 @@
 .info_section{
-	padding: 0 45px;
+	padding: 50px 15px;
 	.title{
 		font-size: rem(24);
+		margin-top: 0;
 	}
 	.text{
 		font-size: rem(16);
 		font-weight: lighter;
 		line-height: percentage(30/16);
+	}
+	&.image_w_text{
+		.title,
+		.text{
+			color: $warm_gray;
+		}
 	}
 	
 }

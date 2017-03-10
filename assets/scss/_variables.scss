@@ -17,4 +17,9 @@ $light_gray: #EEEEEE;
 $gray: #999999;
 $middle_gray: #979797;
 $warm_gray: #232323;
+$dark_red: #250000;
 $transparent: transparent;
+
+.bg_dark_red{
+	background-color: $dark_red;
+}
