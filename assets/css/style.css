@@ -1887,7 +1887,8 @@ th {
 =            Colors            =
 ==============================*/
 .bg_dark_red {
-  background-color: #250000;
+  background-image: url("../images/info_bg.jpg");
+  background-repeat: repeat;
 }
 
 .full_width {
