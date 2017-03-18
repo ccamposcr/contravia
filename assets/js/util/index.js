@@ -5,4 +5,5 @@ var UTIL = window.UTIL = window.UTIL || {};
 
 'use strict';
 //=require match_media.js
+//=require smooth_scroll.js
     
