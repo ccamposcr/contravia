@@ -1,8 +1,20 @@
-.icon{
+.social_icon{
 	font-size: rem(22);
 	color: $warm_gray;
+	text-decoration: none;
+	display: block;
+	margin-bottom: 10px;
 	&:hover{
-		color: $dark_red;
 		text-decoration: none;
+		color: $gray;
 	}
+	&:focus{
+		text-decoration: none;
+		color: $warm_gray;
+	}
+}
+.phone{
+	font-size: rem(16);
+	top: -3px;
+    position: relative;
 }
