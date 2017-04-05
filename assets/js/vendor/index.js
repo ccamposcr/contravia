@@ -3,3 +3,4 @@
 
 //=require jquery-3.1.1.js
 //=require jquery-background-video.js
+//=require sound_cloud_api.js

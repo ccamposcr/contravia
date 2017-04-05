@@ -15,5 +15,6 @@
 
 	//=require navigation.js
 	//=require hero.js
+    //=require sound_cloud.js
 
 })(jQuery);

@@ -108,5 +108,7 @@
 	};
 	
 	APP.hero.init($body);
+    var iframeElement   = document.querySelector('iframe');
+    var widget1         = SC.Widget(iframeElement);
 
 })(jQuery);
