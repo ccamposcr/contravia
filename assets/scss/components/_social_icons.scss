@@ -1,0 +1,8 @@
+.icon{
+	font-size: rem(22);
+	color: $warm_gray;
+	&:hover{
+		color: $dark_red;
+		text-decoration: none;
+	}
+}

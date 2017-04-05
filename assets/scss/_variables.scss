@@ -21,7 +21,5 @@ $dark_red: #250000;
 $transparent: transparent;
 
 .bg_dark_red{
-	//background-color: $dark_red;
-	background-image: url('../images/info_bg.jpg');
-	background-repeat: repeat;
+	background-color: $dark_red;
 }
