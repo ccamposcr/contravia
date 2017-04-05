@@ -4,6 +4,7 @@
 @import 'vendor/normalize';
 
 /**Global files**/
+@import '_icons.scss';
 @import 'mixins/_media_queries.scss';
 @import '_variables.scss';
 @import '_global.scss';
@@ -16,3 +17,4 @@
 @import 'components/_generic_section';
 @import 'components/_info_section';
 @import 'components/_hero';
+@import 'components/_social_icons';
