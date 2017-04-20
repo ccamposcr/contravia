@@ -28,8 +28,46 @@
 	
 	function Nav($el){
 		this.$el = $el;
+		this.$mainNav = $el.find('.main_nav');
+		this.menuItems = [];
 		this.moveToTopOnScroll();
+		this.updateMenuItems();
+		this.detectBreadcrumbsOnScroll();
 		return this;
+	}
+	
+	Nav.prototype.updateMenuItems = function(){
+		var THIS = this;
+	
+		THIS.$mainNav.find('a').each(function(){
+			THIS.menuItems.push( $(this).attr('href') );
+		});
+	
+		return THIS;
+	};
+	
+	Nav.prototype.detectBreadcrumbsOnScroll = function(){
+		var THIS = this;
+	
+		$document.on('scroll', function() {
+	
+			var scrollTop = $(this).scrollTop(),
+				top = 0,
+				sectionHeight = 0,
+				flagOnScrollBack = 500;
+	
+			for( var i = 0; i < THIS.menuItems.length; i++){
+				top = $(THIS.menuItems[i]).position().top,
+				sectionHeight = $(THIS.menuItems[i]).height();
+	
+				if( scrollTop >= top && scrollTop < (top + sectionHeight + flagOnScrollBack) ){
+					THIS.$mainNav.find('a').removeClass('active');
+					$('[href="' + THIS.menuItems[i] + '"]').addClass('active');
+				}
+			}
+		});
+	
+		return THIS;
 	}
 	
 	Nav.prototype.moveToTopOnScroll = function(){

@@ -24,19 +24,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-phone:before {
-  content: "\e904";
-}
-.icon-youtube:before {
+.icon-email:before {
   content: "\e900";
 }
-.icon-instagram:before {
+.icon-youtube:before {
   content: "\e901";
 }
-.icon-twitter:before {
+.icon-instagram:before {
   content: "\e902";
 }
-.icon-facebook:before {
+.icon-twitter:before {
   content: "\e903";
+}
+.icon-facebook:before {
+  content: "\e904";
+}
+.icon-phone:before {
+  content: "\e905";
 }
 

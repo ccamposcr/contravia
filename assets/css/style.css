@@ -1902,24 +1902,28 @@ th {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-phone:before {
-  content: "\e904";
-}
-
-.icon-youtube:before {
+.icon-email:before {
   content: "\e900";
 }
 
-.icon-instagram:before {
+.icon-youtube:before {
   content: "\e901";
 }
 
-.icon-twitter:before {
+.icon-instagram:before {
   content: "\e902";
 }
 
-.icon-facebook:before {
+.icon-twitter:before {
   content: "\e903";
+}
+
+.icon-facebook:before {
+  content: "\e904";
+}
+
+.icon-phone:before {
+  content: "\e905";
 }
 
 /*=============================
@@ -2000,6 +2004,19 @@ html {
 .navigation .main_nav li a {
   color: #ffffff;
   font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.navigation .main_nav li a.active {
+  text-decoration: underline;
+}
+
+.navigation .main_nav li a.active:hover {
+  text-decoration: underline;
+}
+
+.navigation .main_nav li a:hover {
+  text-decoration: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -2159,10 +2176,10 @@ html {
 
 .social_icon {
   font-size: 2.2rem;
-  color: #232323;
+  color: #ffffff;
   text-decoration: none;
-  display: block;
-  margin-bottom: 10px;
+  display: inline-block;
+  margin: 0 15px 0 10px;
 }
 
 .social_icon:hover {
@@ -2175,8 +2192,12 @@ html {
   color: #232323;
 }
 
-.phone {
+.phone, .email {
   font-size: 1.6rem;
   top: -3px;
   position: relative;
+}
+
+.mail_phone_section {
+  margin-top: 20px;
 }

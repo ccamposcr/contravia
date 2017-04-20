@@ -1,9 +1,9 @@
 .social_icon{
 	font-size: rem(22);
-	color: $warm_gray;
+	color: $white;
 	text-decoration: none;
-	display: block;
-	margin-bottom: 10px;
+	display: inline-block;
+	margin: 0 15px 0 10px;
 	&:hover{
 		text-decoration: none;
 		color: $gray;
@@ -13,8 +13,11 @@
 		color: $warm_gray;
 	}
 }
-.phone{
+.phone, .email{
 	font-size: rem(16);
 	top: -3px;
     position: relative;
+}
+.mail_phone_section{
+	margin-top: 20px;
 }
