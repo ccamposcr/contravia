@@ -1,13 +1,23 @@
 .generic_section{
 	padding: 0 30px;
 
+	&.head_title_section,
+	&.text_section{
+		padding-top: 20%;
+    	padding-bottom: 20%;
+	}
+
 	&.head_title_section{
-		min-height: 500px;
+		background-color: $dark_red;
 	}
 	
 	&.vertical_center{
 		display: flex;
 		align-items: center;
+	}
+
+	&.center_content{
+		text-align: center;
 	}
 }
 
@@ -39,5 +49,13 @@
 
 	.content_wrapper{
 		padding: 0 50px;
+	}
+
+	.generic_section{
+		&.head_title_section,
+		&.text_section{
+			padding-top: 10%;
+	    	padding-bottom: 10%;
+		}
 	}
 }
