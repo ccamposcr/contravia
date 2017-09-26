@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.digitas.com/bp/cms-fe.git"
+    "url": "https://github.com/ccamposcr/contravia.git"
   },
   "keywords": [],
-  "author": "Jair Reina <jaireina@gmail.com>",
+  "author": "Christian Campos <ccamposcr@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.9.6",
